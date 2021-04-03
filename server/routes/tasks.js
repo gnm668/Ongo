@@ -32,7 +32,6 @@ const get_single_task = router.get("/:id", async (req, res) => {
 //create task
 router.post("/create", async (req, res) => {
   try {
-
     //description: varchar(255), complete: boolean
     const { task_description, complete } = req.body;
     const new_task = await pool.query(
@@ -51,7 +50,6 @@ router.post("/create", async (req, res) => {
 //update task
 router.put("/:id", async (req, res) => {
   try {
-
     //description: varchar(255), complete: boolean
     const { task_description, complete } = req.body;
     const { id } = req.params;
@@ -77,6 +75,22 @@ router.delete("/:id", async (req, res) => {
     );
 
     res.json("Task successfully deleted");
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+//toggle task completion
+router.put("/complete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const toggle_copmlete = pool.query(
+      "UPDATE tasks SET complete = NOT complete WHERE task_id = $1",
+      [id]
+    );
+
+    res.json("Task completion successfully toggled");
+
   } catch (error) {
     console.log(error.message);
   }
