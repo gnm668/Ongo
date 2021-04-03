@@ -8,12 +8,13 @@ CREATE TABLE users(
 );
 
 CREATE TABLE tasks(
+  app_user_id uuid NOT NULL REFERENCES users(app_user_id),
   task_id SERIAL PRIMARY KEY,
   task_description VARCHAR(255) NOT NULL,
   complete BOOLEAN NOT NULL
 );
 
-CREATE TABLE tasklist(
+CREATE TABLE followedtasks(
   tasklist_id SERIAL PRIMARY KEY,
   task_id INT NOT NULL REFERENCES tasks(task_id),
   app_user_id uuid NOT NULL REFERENCES users(app_user_id)

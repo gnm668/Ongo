@@ -10,7 +10,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 const tasks = require("./routes/tasks");
+const users = require("./routes/users");
 
 app.use("/api/tasks", tasks);
+app.use("/api/users", users);
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
