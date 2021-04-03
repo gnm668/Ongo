@@ -9,7 +9,8 @@ CREATE TABLE users(
 
 CREATE TABLE tasks(
   task_id SERIAL PRIMARY KEY,
-  complete BOOLEAN
+  task_description VARCHAR(255) NOT NULL,
+  complete BOOLEAN NOT NULL
 );
 
 CREATE TABLE tasklist(
