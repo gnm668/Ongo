@@ -69,8 +69,11 @@ router.post("/create", async (req, res) => {
       [app_user_id, task_description, complete]
       );
 
-    //respond with newly created task
-    res.json(new_task.rows[0]);
+    if (!!new_task === true) {
+      res.json(new_task.rows[0]);
+    } else {
+      res.json("Failed to create task");
+    }
 
   } catch (error) {
     console.log(error.message);
@@ -89,9 +92,9 @@ router.put("/:app_user_id/:task_id", async (req, res) => {
     );
 
     if (!!update_task.rows[0] === true) {
-      res.json("Task successfully updated")
+      res.json("Task successfully updated");
     } else {
-      res.json("Failed to update task")
+      res.json("Failed to update task");
     }
 
   } catch (error) {
@@ -109,9 +112,9 @@ router.delete("/:app_user_id/:task_id", async (req, res) => {
     );
 
     if (!!delete_task.rows[0] === true) {
-      res.json("Task successfully deleted")
+      res.json("Task successfully deleted");
     } else {
-      res.json("Failed to delete task")
+      res.json("Failed to delete task");
     }
 
   } catch (error) {
@@ -129,9 +132,9 @@ router.put("/complete/:app_user_id/:task_id", async (req, res) => {
     );
     
     if (!!toggle_complete.rows[0] === true) {
-      res.json("Task completion successfully toggled")
+      res.json("Task completion successfully toggled");
     } else {
-      res.json("Task failed to toggle")
+      res.json("Task failed to toggle");
     }
 
   } catch (error) {
