@@ -142,4 +142,21 @@ router.put("/complete/:app_user_id/:task_id", async (req, res) => {
   }
 });
 
+//get all followed tasks for user
+router.get("/:app_user_id/followedtasks", async (req, res) => {
+  try {
+    const { app_user_id } = req.params;
+    const followed_tasks = await pool.query(
+      "SELECT * FROM tasks JOIN followedtasks ON tasks.task_id = followedtasks.task_id \
+      WHERE followedtasks.app_user_id::text = $1",
+      [app_user_id]
+    );
+
+    res.json(followed_tasks.rows);
+
+  } catch (error) {
+    res.json(error.message);
+  }
+});
+
 module.exports = router;
