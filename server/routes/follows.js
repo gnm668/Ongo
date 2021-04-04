@@ -25,4 +25,24 @@ router.post("/:app_user_id/create", async (req, res) => {
   }
 });
 
+router.delete("/:app_user_id/delete", async (req, res) => {
+  try {
+    const { app_user_id } = req.params;
+    const { task_id } = req.body;
+    const delete_follow = await pool.query(
+      "DELETE FROM followedtasks where task_id = $1 AND app_user_id = $2 RETURNING *",
+      [task_id, app_user_id]
+    );
+
+    if (!!delete_follow.rows[0] === true) {
+      res.json("Follow successfully deleted");
+    } else {
+      res.json("Failed to delete follow");
+    }
+
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 module.exports = router;
