@@ -147,7 +147,8 @@ router.get("/:app_user_id/followedtasks", async (req, res) => {
   try {
     const { app_user_id } = req.params;
     const followed_tasks = await pool.query(
-      "SELECT tasks.app_user_id, followedtasks.task_id, task_description, complete FROM tasks JOIN followedtasks ON tasks.task_id = followedtasks.task_id \
+      "SELECT tasks.app_user_id, followedtasks.task_id, task_description, complete \
+      FROM tasks JOIN followedtasks ON tasks.task_id = followedtasks.task_id \
       WHERE followedtasks.app_user_id::text = $1",
       [app_user_id]
     );
