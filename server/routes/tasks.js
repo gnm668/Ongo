@@ -13,6 +13,36 @@ router.get("/", async (req, res) => {
   }
 });
 
+//get all incompleted tasks for a user
+router.get("/:app_user_id/incomplete", async (req, res) => {
+  try {
+    const { app_user_id } = req.params;
+    const all_tasks = await pool.query("SELECT * FROM tasks WHERE app_user_id = $1 AND complete = false", 
+    [app_user_id]
+    );
+    
+    res.json(all_tasks.rows);
+
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+//get all completed tasks for a user
+router.get("/:app_user_id/complete", async (req, res) => {
+  try {
+    const { app_user_id } = req.params;
+    const all_tasks = await pool.query("SELECT * FROM tasks WHERE app_user_id = $1 AND complete = true", 
+    [app_user_id]
+    );
+
+    res.json(all_tasks.rows);
+
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 //get a single task 
 router.get("/:id", async (req, res) => {
   try {
