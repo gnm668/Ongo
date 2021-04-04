@@ -5,11 +5,6 @@ const pool = require("../db");
 
 router.post("/:app_user_id/create", async (req, res) => {
   try {
-    
-    //I'm making the assumption that we are getting the task id from state of the component on the frontend
-    //presumably we would want the frontend to rerender upon following a task to toggle between a follow 
-    //and unfollow button, the way that this endpoint is built should work for the front-end to update 
-    //whichever state management they decide to use i.e. Redux, etc. 
 
     //description task_id: int, app_user_id: uuid
     const { app_user_id } = req.params;
