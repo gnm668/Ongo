@@ -16,11 +16,11 @@ router.post("/:app_user_id/create", async (req, res) => {
     if (!!new_follow.rows[0] === true) {
       res.json(new_follow.rows[0]);
     } else {
-      res.json("Failed to follow task");
+      res.status(404).send("Failed to follow task");
     }
 
   } catch (error) {
-    console.log(error.message);
+    res.status(404).send("Failed to follow task");
   }
 });
 
@@ -36,11 +36,11 @@ router.delete("/:app_user_id/delete", async (req, res) => {
     if (!!delete_follow.rows[0] === true) {
       res.json("Follow successfully deleted");
     } else {
-      res.json("Failed to delete follow");
+      res.status(404).send("Failed to delete follow");
     }
 
   } catch (error) {
-    console.log(error.message);
+    res.status(404).send("Failed to delete follow");
   }
 });
 

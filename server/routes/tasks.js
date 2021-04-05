@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
     res.json(all_tasks.rows);
 
   } catch (error) {
-    console.log(error.message);
+    res.status(404).send("Failed to get all tasks");
   }
 });
 
@@ -24,7 +24,7 @@ router.get("/:app_user_id/incomplete", async (req, res) => {
     res.json(all_tasks.rows);
 
   } catch (error) {
-    console.log(error.message);
+    res.status(404).send("Failed to get all incomplete tasks");
   }
 });
 
@@ -39,7 +39,7 @@ router.get("/:app_user_id/complete", async (req, res) => {
     res.json(all_tasks.rows);
 
   } catch (error) {
-    console.log(error.message);
+    res.status(404).send("Failed to get all complete tasks");
   }
 });
 
@@ -55,7 +55,7 @@ router.get("/:id", async (req, res) => {
     res.json(task.rows[0]);
 
   } catch (error) {
-    console.log(error.message);
+    res.status(404).send("Failed to get task");
   }
 });
 
@@ -72,11 +72,11 @@ router.post("/create", async (req, res) => {
     if (!!new_task === true) {
       res.json(new_task.rows[0]);
     } else {
-      res.json("Failed to create task");
+      res.status(404).send("Failed to create task");
     }
 
   } catch (error) {
-    console.log(error.message);
+    res.status(404).send("Failed to create task");
   }
 });
 
@@ -94,11 +94,11 @@ router.put("/:app_user_id/:task_id", async (req, res) => {
     if (!!update_task.rows[0] === true) {
       res.json("Task successfully updated");
     } else {
-      res.json("Failed to update task");
+      res.status(404).send("Failed to update task");
     }
 
   } catch (error) {
-    console.log(error.message);
+    res.status(404).send("Failed to update task");
   }
 });
 
@@ -114,11 +114,11 @@ router.delete("/:app_user_id/:task_id", async (req, res) => {
     if (!!delete_task.rows[0] === true) {
       res.json("Task successfully deleted");
     } else {
-      res.json("Failed to delete task");
+      res.status(404).send("Failed to delete task");
     }
 
   } catch (error) {
-    console.log(error.message);
+    res.status(404).send("Failed to delete task");
   }
 });
 
@@ -134,11 +134,11 @@ router.put("/complete/:app_user_id/:task_id", async (req, res) => {
     if (!!toggle_complete.rows[0] === true) {
       res.json("Task completion successfully toggled");
     } else {
-      res.json("Task failed to toggle");
+      res.status(404).send("Task failed to toggle");
     }
 
   } catch (error) {
-    console.log(error.message);
+    res.status(404).send("Task failed to toggle");
   }
 });
 
@@ -156,7 +156,7 @@ router.get("/:app_user_id/followedtasks", async (req, res) => {
     res.json(followed_tasks.rows);
 
   } catch (error) {
-    res.json(error.message);
+    res.status(404).send("Failed to get followed tasks");
   }
 });
 
